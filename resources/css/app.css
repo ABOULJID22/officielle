@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animate-fadein { animation: fadein 1s; }
+.animate-fadeinleft { animation: fadeinleft 1s; }
+.animate-fadeinright { animation: fadeinright 1s; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeinleft { from { opacity: 0; transform: translateX(-60px);} to { opacity: 1; transform: none;} }
+@keyframes fadeinright { from { opacity: 0; transform: translateX(60px);} to { opacity: 1; transform: none;} }
+
+
+
+.animate-fadein { animation: fadein 1.2s; }
+.animate-fadeinright { animation: fadeinright 1s; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeinright { from { opacity: 0; transform: translateX(50px);} to { opacity: 1; transform: none;} }
+
+
+.line-clamp-3 {
+display: -webkit-box;
+-webkit-line-clamp: 3;
+overflow: hidden;
+-webkit-box-orient: vertical;
+}
+
+
+
+
+
+/* Keyframes pour les animations des "blobs" de fond */
+@keyframes blob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(30px, -50px) scale(1.1); }
+  60% { transform: translate(-20px, 40px) scale(0.9); }
+}
+@keyframes blob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(-40px, 30px) scale(1.2); }
+  70% { transform: translate(50px, -20px) scale(0.8); }
+}
+@keyframes blob-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 10px) scale(0.9); }
+  80% { transform: translate(-30px, -60px) scale(1.1); }
+}
+
+.animate-blob-1 { animation: blob-1 12s infinite ease-in-out; }
+.animate-blob-2 { animation: blob-2 15s infinite ease-in-out; }
+.animate-blob-3 { animation: blob-3 18s infinite ease-in-out; }
+
+/* Styles pour les animations d'entrée */
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 1s ease-out forwards;
+  opacity: 0;
+}
+.animate-fade-in-right {
+  animation: fadeInRight 1s ease-out forwards;
+  opacity: 0;
+}
+
+/* Retard d'animation si nécessaire, comme dans les sections précédentes */
+/* .animation-delay-2000 { animation-delay: 2s; } */
+
