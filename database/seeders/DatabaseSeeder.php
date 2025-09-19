@@ -13,17 +13,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Safety guard: avoid accidentally running all seeders in production.
+        if (app()->environment('production') && env('ALLOW_PRODUCTION_SEED') !== '1') {
+            $this->command?->error('Seeding in production is disabled by default. Set ALLOW_PRODUCTION_SEED=1 to allow.');
+            return;
+        }
+        // Seeder des utilisateurs
         $this->call([
+            // Permissions first, then roles, then assign permissions to roles
+            ShieldSeeder::class,
+            RoleSeeder::class,
+            RolesAndPermissionsSeeder::class,
+
+            // Domain seeders
             CategorySeeder::class,
-            TagSeeder::class,
-            PostSeeder::class,
             SiteSettingSeeder::class,
+
+            // Users before posts to ensure authors exist
+            UserSeeder::class,
+
+            // Content
+            PostSeeder::class,
+            EventSeeder::class,
+            BackfillTranslationsSeeder::class,
         ]);
     }
 }

@@ -10,33 +10,30 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Super Admin
+        $email = env('SEED_ADMIN_EMAIL');
+        $plainPassword = env('SEED_ADMIN_PASSWORD');
+
+        if (! $plainPassword) {
+            // Generate a secure password for local/dev environments
+            if (! app()->environment('production')) {
+                $plainPassword = bin2hex(random_bytes(8)); // 16 hex chars
+                $this->command?->info("Generated super admin password for {$email}: {$plainPassword}");
+            } else {
+                // In production, require explicit password via env var to avoid weak defaults
+                $this->command?->error('SEED_ADMIN_PASSWORD is required to create super admin in production. Skipping creation.');
+                return;
+            }
+        }
+
         $superAdmin = User::firstOrCreate(
-            ['email' => 'admin@offitrade.com'],
+            ['email' => $email],
             [
                 'name' => 'Super Admin',
-                'password' => bcrypt('password'),
+                'password' => bcrypt($plainPassword),
             ]
         );
         $superAdmin->assignRole('super_admin');
 
-        // Assistant
-        $assistant = User::firstOrCreate(
-            ['email' => 'assistant@offitrade.com'],
-            [
-                'name' => 'Assistant',
-                'password' => bcrypt('password'),
-            ]
-        );
-        $assistant->assignRole('assistant');
-
-        // Client
-        $client = User::firstOrCreate(
-            ['email' => 'client@offitrade.com'],
-            [
-                'name' => 'Client',
-                'password' => bcrypt('password'),
-            ]
-        );
-        $client->assignRole('client');
+        
     }
 }

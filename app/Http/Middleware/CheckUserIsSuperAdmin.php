@@ -17,7 +17,7 @@ class CheckUserIsSuperAdmin
     {
         $user = auth()->user();
 
-        if ($user && $user->isSuperAdmin()) {
+        if ($user && ($user->isSuperAdmin() || $user->isClient() || $user->isAssistant())) {
             return $next($request);
         }
 

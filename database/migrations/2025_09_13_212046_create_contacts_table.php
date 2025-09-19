@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
+                $table->string('phone')->nullable();
             $table->string('user_type');
             $table->string('user_other')->nullable();
             $table->text('message');
+                // Ajout des champs de réponse
+                $table->text('reply_message')->nullable();
+                $table->timestamp('replied_at')->nullable();
+                $table->foreignId('replied_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

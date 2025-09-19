@@ -13,8 +13,8 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         // Articles publiés, programmés et brouillons
-        Post::factory()->count(8)->published()->create();
-        Post::factory()->count(3)->scheduled()->create();
-        Post::factory()->count(4)->create(); // statut aléatoire
+        Post::factory()->count(3)->published()->create();
+        Post::factory()->count(1)->scheduled()->create();
+        Post::factory()->count(1)->create(); // statut aléatoire
     }
 }

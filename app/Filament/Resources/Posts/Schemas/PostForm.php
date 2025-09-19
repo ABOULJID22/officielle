@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -16,18 +17,45 @@ class PostForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->required()
-                    ->live(onBlur: true) 
-                    ->afterStateUpdated(function ($state, callable $set) {
-                        $set('slug', Str::slug($state)); // génère slug automatiquement
-                    }),
+                Repeater::make('translations')
+                    ->relationship('translations')
+                    ->label('Traductions')
+                    ->defaultItems(0)
+                    ->reorderable(false)
+                    ->maxItems(2)
+                    ->schema([
+                        Select::make('locale')
+                            ->label('Langue')
+                            ->options([
+                                'fr' => 'Français',
+                                'en' => 'English',
+                            ])
+                            ->required()
+                            ->disableOptionWhen(function ($value, callable $get) {
+                                $items = collect($get('../../translations') ?? [])
+                                    ->pluck('locale')
+                                    ->filter();
+                                $current = $get('locale');
+                                return $items->contains($value) && $current !== $value;
+                            }),
 
-                TextInput::make('slug')
-                    ->required(),
+                        TextInput::make('title')
+                            ->label('Titre')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('slug', Str::slug($state));
+                            }),
 
-                Textarea::make('content')
-                    ->default(null)
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required(),
+
+                        Textarea::make('content')
+                            ->label('Contenu')
+                            ->default(null)
+                            ->columnSpanFull(),
+                    ])
                     ->columnSpanFull(),
 
                 FileUpload::make('cover_image')

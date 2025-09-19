@@ -26,7 +26,7 @@ class SiteSettingResource extends Resource
     protected static UnitEnum|string|null $navigationGroup = 'Paramètres';
 
     protected static ?string $recordTitleAttribute = 'y';
-
+protected static ?int $navigationSort = 90;
     public static function form(Schema $schema): Schema
     {
         return SiteSettingForm::configure($schema);

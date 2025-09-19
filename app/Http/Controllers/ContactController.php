@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Filament\Notifications\Notification as FilamentNotification;
+use Filament\Actions\Action;
 
 
 class ContactController extends Controller
@@ -50,18 +53,56 @@ class ContactController extends Controller
     {
         // Validation des champs
         $validated = $request->validate([
-            'name'       => 'required|string|max:255',
-            'email'      => 'required|email',
-            'phone'      => 'required|string|max:20',
-            'user_type'  => 'required|string|max:255',
-            'user_other' => 'nullable|string|max:255',
-            'message'    => 'required|string',
+            'name'       => ['required','string','max:100','regex:/^[\p{L}\s\'\-]+$/u'],
+            'email'      => ['required','email'],
+            'phone'      => ['required','string','max:20','regex:/^[\d\s+\-().]+$/'],
+            'user_type'  => ['required','string','in:Acheteur,Futur pharmacien,Pharmacien titulaire,Autres'],
+            'user_other' => ['nullable','string','max:100','regex:/^[\p{L}\s\'\-]+$/u'],
+            'message'    => ['required','string','max:1500'],
+        ], [
+            'name.regex' => 'Le nom contient des caractères non autorisés.',
+            'user_other.regex' => 'Le champ "Précisez" contient des caractères non autorisés.',
+            'phone.regex' => 'Le téléphone ne doit contenir que chiffres, espaces, +, -, ( ).',
+            'user_type.in' => 'Veuillez sélectionner une option valide.',
+            'message.max' => 'Le message ne doit pas dépasser 1500 caractères.',
         ]);
 
         // Sauvegarde dans la base
-       /*  Contact::create($validated);*/
+        $contact = Contact::create($validated);
 
-       $contact = Contact::create($validated);
+        // Create initial threaded support message
+        try {
+            if (class_exists(\App\Models\SupportMessage::class)) {
+                \App\Models\SupportMessage::create([
+                    'contact_id' => $contact->id,
+                    'user_id' => null,
+                    'body' => $contact->message,
+                    'sender_type' => 'client',
+                ]);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Initial support message not created: '.$e->getMessage());
+        }
+
+        // Notifier tous les super admins dans Filament (base de données)
+        try {
+            $admins = User::role(User::ROLE_SUPER_ADMIN)->get();
+            if ($admins->isNotEmpty()) {
+                $notification = FilamentNotification::make()
+                    ->title('Nouveau message de contact')
+                    ->body(sprintf('%s (%s)', $contact->name, $contact->email))
+                    ->actions([
+                        Action::make('view')
+                            ->label('Voir les contacts')
+                            ->url(route('filament.admin.resources.contacts.index'), true),
+                    ]);
+
+                // true => dispatch DatabaseNotificationsSent event (rafraîchit la cloche)
+                $notification->sendToDatabase($admins, true);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Notification admin non envoyée: '.$e->getMessage());
+        }
 
         // Envoi d’email admin (CONTACT_TO) et email de remerciement à l'utilisateur (avec 1 retry après 3s)
         $to = env('CONTACT_TO', config('mail.from.address'));
@@ -96,12 +137,12 @@ class ContactController extends Controller
                     'user_email' => $contact->email,
                 ]);
             }
-            return back()->with('success', "Votre message a bien été enregistré et l'email a été envoyé.");
+            return redirect()->to(url()->previous() . '#contact')->with('success', "Votre message a bien été enregistré et l'email a été envoyé.");
         } catch (\Throwable $e) {
             Log::error('Erreur lors de l\'envoi de l\'email de contact: '.$e->getMessage(), [
                 'contact_id' => $contact->id ?? null,
             ]);
-            return back()->with([
+            return redirect()->to(url()->previous() . '#contact')->with([
                 'success' => 'Votre message a bien été enregistré !',
                 'warning' => 'L\'email n\'a pas pu être envoyé pour le moment.'
             ]);

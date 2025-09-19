@@ -11,17 +11,7 @@
 
             <!-- Carte de Bienvenue Utilisateur -->
             <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 flex items-center space-x-6 transition-all duration-300 hover:shadow-xl">
-                @if (Auth::user()->avatar)
-                    <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover border-4 border-blue-500 dark:border-blue-400 shadow-md">
-                @else
-                    <span class="w-20 h-20 flex items-center justify-center rounded-full bg-blue-100 dark:bg-gray-700 text-blue-600 dark:text-blue-300 font-bold text-3xl border-4 border-blue-500 dark:border-blue-400 shadow-md">
-                        @php
-                            $name = Auth::user()->name;
-                            $initials = strtoupper(substr($name, 0, 1) . (strpos($name, ' ') ? substr(strstr($name, ' '), 1, 1) : ''));
-                        @endphp
-                        {{ $initials }}
-                    </span>
-                @endif
+                <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover border-4 border-blue-500 dark:border-blue-400 shadow-md">
                 <div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ Auth::user()->name }}</h3>
                     <p class="text-md text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</p>

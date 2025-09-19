@@ -21,7 +21,13 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Middleware\CheckUserIsSuperAdmin;
-use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
+use Filament\Actions\Action;
+use App\Http\Middleware\SetLocaleFromSession;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
+use App\Filament\Pages\Calendar as CalendarPage;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -39,12 +45,19 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
+                CalendarPage::class,
             ])
             //->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 BlogStats::class,
+                \App\Filament\Widgets\ClientKpis::class,
             ])
+            ->renderHook(
+                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+                fn (): string => view('filament.partials.lang-switch')->render(),
+            )
             ->globalSearch(false)
+            ->databaseNotificationsPolling('10s')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -55,6 +68,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetLocaleFromSession::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
@@ -62,24 +76,58 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+               
             ])
             //->viteTheme('resources/css/filament/admin/theme.css')
             ->homeUrl('/')
+            ->userMenuItems([
+                'profile' => Action::make('profile')
+                    ->label('Profil')
+                    ->icon('heroicon-m-user')
+                    ->url('/profile'),
+                Action::make('lang-fr')
+                    ->label('Français')
+                    ->icon('heroicon-m-language')
+                    ->url('/locale/fr')
+                    ->sort(-10),
+                Action::make('lang-en')
+                    ->label('English')
+                    ->icon('heroicon-m-language')
+                    ->url('/locale/en')
+                    ->sort(-9),
+            ])
             ->sidebarCollapsibleOnDesktop()
             ->sidebarWidth('16rem')
-            //->databaseNotifications()
+            ->databaseNotifications()
             ->authMiddleware([
                 Authenticate::class,
             ])
-             ->navigationGroups([
-            NavigationGroup::make()
-                 ->label('Blog')
-                 ->icon('heroicon-m-rectangle-stack'),
-          NavigationGroup::make()
-              ->label('Paramètres')
-              ->icon('heroicon-m-cog'),
-            
-        ]);
+            ->navigationItems([
+                NavigationItem::make()
+                    ->label(__('filament.nav.groups.trade'))
+                    ->icon('heroicon-m-shopping-cart')
+                    ->sort(1),
+
+                NavigationItem::make()
+                    ->label(__('filament.nav.groups.blog'))
+                    ->icon('heroicon-m-rectangle-stack')
+                    ->sort(2),
+
+                NavigationItem::make()
+                    ->label(__('filament.nav.groups.settings'))
+                    ->icon('heroicon-m-cog')
+                    ->sort(3),
+                NavigationItem::make()
+                    ->label(__('filament.nav.groups.settings'))
+                    ->icon('heroicon-m-cog')
+                    ->sort(3),
+                 NavigationItem::make()
+                    ->label(__('filament.nav.groups.support'))
+                    ->icon('heroicon-m-cog')
+                    ->sort(3),
+            ]);
+
+           
             
             
 
@@ -90,12 +138,12 @@ class AdminPanelProvider extends PanelProvider
 
 
 
-      public static function canAccess(): bool
+            public static function canAccess(): bool
     {
         $user = auth()->user();
 
-        // Check if a user is authenticated and if they have the 'super_admin' role.
-        return $user && $user->isSuperAdmin();
+                // Allow super_admin, client, and assistant to access the panel.
+                return $user && ($user->isSuperAdmin() || $user->isClient() || $user->isAssistant());
     }
 
 }

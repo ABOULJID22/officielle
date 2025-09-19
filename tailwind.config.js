@@ -13,7 +13,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // Default body font
+                sans: ['"Helvetica World"', 'Helvetica', 'Arial', ...defaultTheme.fontFamily.sans],
+                // Headings font
+                serif: ['"Libre Baskerville"', ...defaultTheme.fontFamily.serif],
             },
         },
     },

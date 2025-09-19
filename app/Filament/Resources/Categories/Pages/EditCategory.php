@@ -20,4 +20,18 @@ class EditCategory extends EditRecord
             RestoreAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        $record = $this->record;
+        $locale = app()->getLocale();
+        $t = $record->translation($locale) ?: $record->translation(config('app.fallback_locale'));
+        if ($t) {
+            $record->forceFill([
+                'name' => $t->name,
+                'slug' => $t->slug,
+                'description' => $t->description,
+            ])->saveQuietly();
+        }
+    }
 }

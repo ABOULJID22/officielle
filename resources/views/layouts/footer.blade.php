@@ -8,34 +8,34 @@
             <div class="md:col-span-1">
                 <img src="{{ $siteSettings?->logo_path ? Storage::url($siteSettings->logo_path) : '/images/avater.png' }}" alt="Offitrade Logo" class="h-12 mb-4">
                 <p class="text-sm mt-2 text-white/80 dark:text-gray-300">
-                    Optimisez vos opérations commerciales grâce à une solution intelligente et efficace.
+                    {{ __('site.footer.desc') }}
                 </p>
             </div>
 
             <!-- Navigation -->
             <div>
-                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">Navigation</h4>
+                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">{{ __('site.footer.navigation') }}</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="/" class="hover:text-white dark:hover:text-gray-300 transition">Accueil</a></li>
-                    <li><a href="#about" class="hover:text-white dark:hover:text-gray-300 transition">Qui sommes-nous ?</a></li>
-                    <li><a href="{{ route('pourquoi') }}" class="hover:text-white dark:hover:text-gray-300 transition">Pourquoi Offitrade ?</a></li>
-                    <li><a href="#contact" class="hover:text-white dark:hover:text-gray-300 transition">Contact</a></li>
+                    <li><a href="/" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.nav.home') }}</a></li>
+                    <li><a href="#about" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.nav.about') }}</a></li>
+                    <li><a href="{{ route('pourquoi') }}" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.nav.blog') }}</a></li>
+                    <li><a href="#contact" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.nav.contact') }}</a></li>
                 </ul>
             </div>
 
             <!-- Compte -->
 @guest
 <div>
-    <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">Compte</h4>
+    <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">{{ __('site.footer.account') }}</h4>
     <ul class="space-y-2 text-sm">
         <li>
             <a href="{{ route('login') }}" class="hover:text-white dark:hover:text-gray-300 transition">
-                Se connecter
+                {{ __('site.footer.login') }}
             </a>
         </li>
         <li>
             <a href="{{ route('register') }}" class="hover:text-white dark:hover:text-gray-300 transition">
-                S'inscrire
+                {{ __('site.footer.register') }}
             </a>
         </li>
     </ul>
@@ -45,18 +45,18 @@
 @auth
 {{-- Exemple : montrer autre chose si connecté --}}
 <div>
-    <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">Mon compte</h4>
+    <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">{{ __('site.footer.my_account') }}</h4>
     <ul class="space-y-2 text-sm">
         <li>
             <a href="{{ route('profile.edit')}}" class="hover:text-white dark:hover:text-gray-300 transition">
-                Profil
+                {{ __('site.footer.profile') }}
             </a>
         </li>
         <li>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="hover:text-white dark:hover:text-gray-300 transition">
-                    Se déconnecter
+                    {{ __('site.footer.logout') }}
                 </button>
             </form>
         </li>
@@ -67,20 +67,20 @@
 
             <!-- Support & FAQ -->
             <div>
-                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">Support</h4>
+                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">{{ __('site.footer.support') }}</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#faq" class="hover:text-white dark:hover:text-gray-300 transition">FAQ</a></li>
-                    <li><a href="{{ route('legal') }}" class="hover:text-white dark:hover:text-gray-300 transition">Mentions légales</a></li>
-                    <li><a href="{{ route('privacy') }}" class="hover:text-white dark:hover:text-gray-300 transition">Politique de confidentialité</a></li>
+                    <li><a href="#faq" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.nav.faq') }}</a></li>
+                    <li><a href="{{ route('legal') }}" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.footer.legal') }}</a></li>
+                    <li><a href="{{ route('privacy') }}" class="hover:text-white dark:hover:text-gray-300 transition">{{ __('site.footer.privacy') }}</a></li>
                 </ul>
             </div>
 
             <!-- Réseaux sociaux -->
             <div>
-                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">Suivez-nous</h4>
+                <h4 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider dark:text-gray-200">{{ __('site.footer.follow_us') }}</h4>
                 <div class="flex space-x-4">
                     <!-- Facebook -->
-                    <a href="{{ $siteSettings?->facebook_url ?? 'https://www.facebook.com/' }}" target="_blank" aria-label="Facebook" class="hover:text-blue-400 transition">
+                   <!--  <a href="{{ $siteSettings?->facebook_url ?? 'https://www.facebook.com/' }}" target="_blank" aria-label="Facebook" class="hover:text-blue-400 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                             <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.325 
                             24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.894-4.788 
@@ -90,9 +90,9 @@
                             24 24 23.403 24 22.674V1.326C24 
                             .597 23.403 0 22.675 0z"/>
                         </svg>
-                    </a>
+                    </a> -->
                     <!-- LinkedIn -->
-                    <a href="{{ $siteSettings?->linkedin_url ?? 'https://www.linkedin.com/' }}" target="_blank" aria-label="LinkedIn" class="hover:text-blue-400 transition">
+                    <a href="{{ $siteSettings?->linkedin_url ?? 'https://www.linkedin.com/Company/offitrade' }}" target="_blank" aria-label="LinkedIn" class="hover:text-blue-400 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                             <path d="M20.447 20.452h-3.554v-5.569c0-1.327-.026-3.037-1.85-3.037-1.853 
                             0-2.136 1.445-2.136 2.939v5.667H9.354V9h3.414v1.561h.049c.476-.9 
@@ -109,7 +109,7 @@
                         </svg>
                     </a>
                     <!-- Twitter -->
-                    <a href="{{ $siteSettings?->twitter_url ?? 'https://twitter.com/' }}" target="_blank" aria-label="Twitter" class="hover:text-blue-400 transition">
+                   <!--  <a href="{{ $siteSettings?->twitter_url ?? 'https://twitter.com/' }}" target="_blank" aria-label="Twitter" class="hover:text-blue-400 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                             <path d="M24 4.557a9.83 9.83 0 0 
                             1-2.828.775 4.932 4.932 0 0 
@@ -130,9 +130,9 @@
                             14.01-14.01 0-.213-.005-.425-.014-.636A10.012 
                             10.012 0 0 0 24 4.557z"/>
                         </svg>
-                    </a>
+                    </a> -->
                     <!-- Instagram -->
-                    <a href="{{ $siteSettings?->instagram_url ?? 'https://www.instagram.com/' }}" target="_blank" aria-label="Instagram" class="hover:text-pink-400 transition">
+                    <a href="{{ $siteSettings?->instagram_url ?? 'https://www.instagram.com/offitrade.fr' }}" target="_blank" aria-label="Instagram" class="hover:text-pink-400 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 
                             4.85.07 1.366.062 2.633.35 
@@ -170,16 +170,23 @@
                     </a>
                 </div>
                 <div class="mt-6 text-xs text-white/80 space-y-1">
-                    <p><span class="font-semibold">Email:</span> {{ $siteSettings?->email ?? 'contact@offitrade.com' }}</p>
-                    <p><span class="font-semibold">Tél:</span> {{ $siteSettings?->phone ?? '+212 6 12 34 56 78' }}</p>
-                    <p class="max-w-[12rem] leading-snug"><span class="font-semibold">Adresse:</span> {{ $siteSettings?->address ?? '7 rue des Fleurs, 37000 Tours' }}</p>
+                    <p><span class="font-semibold">{{ __('site.footer.email') }}:</span> {{ $siteSettings?->email ?? 'contact@offitrade.fr' }}</p>
+                    <p><span class="font-semibold">{{ __('site.footer.phone') }}:</span> {{ $siteSettings?->phone ?? '+33 07 67 70 67 26' }}</p>
+                    <p class="max-w-[12rem] leading-snug"><span class="font-semibold">{{ __('site.footer.address') }}:</span> {{ $siteSettings?->address ?? '14 rue Beffory, 92200 Neuilly-sur-Seine, France' }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Copyright -->
+            <!-- Copyright -->
         <div class="mt-8 text-center text-xs text-white/70 dark:text-gray-400">
-            &copy; 2025 Offitrade. Tous droits réservés. | Made with ❤️ by Offitrade Team
+            &copy; 
+            @if (now()->year > 2025)
+                2025-{{ now()->year }}
+            @else
+                2025
+            @endif
+            Offitrade. {{ __('site.footer.copyright') }} | {{ __('site.footer.made_with') }}
         </div>
+
     </div>
 </footer>

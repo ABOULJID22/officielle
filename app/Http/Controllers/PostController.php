@@ -14,21 +14,39 @@ class PostController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Post::query()
-            ->with(['author', 'category']); // eager loading relations
+        $locale = app()->getLocale();
 
-        // Filtre catégorie par slug
+        $query = Post::query()
+            ->with(['author', 'category', 'translations' => function ($q) use ($locale) {
+                $q->whereIn('locale', [$locale, config('app.fallback_locale')]);
+            }, 'category.translations' => function ($q) use ($locale) {
+                $q->whereIn('locale', [$locale, config('app.fallback_locale')]);
+            }]);
+
+        // Filtre catégorie par slug (localisé)
         if ($request->filled('category')) {
             $slug = $request->query('category');
-            $query->whereHas('category', fn ($q) => $q->where('slug', $slug));
+            $query->whereHas('category', function ($q) use ($slug, $locale) {
+                $q->where('slug', $slug)
+                  ->orWhereHas('translations', function ($qq) use ($slug, $locale) {
+                      $qq->where('locale', $locale)->where('slug', $slug);
+                  });
+            });
         }
 
-        // Recherche plein texte simple
+        // Recherche plein texte simple (localisée)
         if ($request->filled('search')) {
             $s = $request->query('search');
-            $query->where(function ($q) use ($s) {
+            $query->where(function ($q) use ($s, $locale) {
                 $q->where('title', 'like', "%{$s}%")
-                  ->orWhere('content', 'like', "%{$s}%");
+                  ->orWhere('content', 'like', "%{$s}%")
+                  ->orWhereHas('translations', function ($qq) use ($s, $locale) {
+                      $qq->where('locale', $locale)
+                         ->where(function ($qqq) use ($s) {
+                             $qqq->where('title', 'like', "%{$s}%")
+                                 ->orWhere('content', 'like', "%{$s}%");
+                         });
+                  });
             });
         }
 
@@ -42,8 +60,11 @@ class PostController extends Controller
         // Pagination
         $posts = $query->paginate(9)->withQueryString();
 
-        // Catégories pour la barre de filtre
-        $categories = Category::orderBy('name')->get(['id', 'name', 'slug']);
+        // Catégories pour la barre de filtre (localisées) + tri par nom traduit
+        $categories = Category::with(['translations' => function ($q) use ($locale) {
+            $q->whereIn('locale', [$locale, config('app.fallback_locale')]);
+        }])->get(['id', 'name', 'slug'])
+          ->sortBy(fn ($c) => mb_strtolower($c->name));
 
         return view('pages.blog.index', compact('posts', 'categories'));
     }
@@ -53,7 +74,12 @@ class PostController extends Controller
      */
     public function show(Post $post): View
     {
-        $post->load(['author', 'category']); // relations pour la vue [15]
+        $locale = app()->getLocale();
+        $post->load(['author', 'category', 'translations' => function ($q) use ($locale) {
+            $q->whereIn('locale', [$locale, config('app.fallback_locale')]);
+        }, 'category.translations' => function ($q) use ($locale) {
+            $q->whereIn('locale', [$locale, config('app.fallback_locale')]);
+        }]);
 
         $prev = Post::query()
             ->where('status', 'published')
