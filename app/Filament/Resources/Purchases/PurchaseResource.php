@@ -81,22 +81,53 @@ class PurchaseResource extends Resource
                 Forms\Components\Select::make('lab_id')
                     ->label(__('filament.purchases.fields.lab'))
                     ->relationship('lab', 'name')
+                    ->placeholder('Sélectionner un labo')
                     ->searchable()
                     ->preload()
+                    ->reactive()
                     ->required()
                     ->createOptionForm([
-                        Forms\Components\TextInput::make('name')->label(__('filament.nav.resources.labs'))->required(),
+                        Forms\Components\TextInput::make('name')
+                            ->label(__('filament.nav.resources.labs'))
+                            ->required(),
+                        Forms\Components\Repeater::make('categories')
+                            ->label(__('filament.purchases.fields.category'))
+                            ->minItems(0)
+                            ->collapsible()
+                            ->reorderable()
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label(__('filament.purchases.fields.category'))
+                                    ->required(),
+                            ]),
                     ])
                     ->createOptionUsing(function (array $data) {
                         $lab = Lab::firstOrCreate(['name' => $data['name']], ['name' => $data['name']]);
+                        $categories = (array)($data['categories'] ?? []);
+                        if ($lab && !empty($categories)) {
+                            foreach ($categories as $cat) {
+                                if (!empty($cat['name'])) {
+                                    LabCategory::firstOrCreate([
+                                        'lab_id' => $lab->id,
+                                        'name' => $cat['name'],
+                                    ]);
+                                }
+                            }
+                        }
                         return $lab->id;
+                    })
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $set('lab_category_id', null);
+                        $set('lab_type_id', null);
                     }),
                 Forms\Components\Select::make('lab_category_id')
                     ->label(__('filament.purchases.fields.category'))
                     ->options(fn (callable $get) => $get('lab_id') ? LabCategory::where('lab_id', $get('lab_id'))->pluck('name', 'id') : [])
+                    ->placeholder('Sélectionner une catégorie')
                     ->reactive()
                     ->searchable()
                     ->preload()
+                    ->required(fn (callable $get) => (bool) $get('lab_id'))
                     ->visible(fn (callable $get) => (bool) $get('lab_id'))
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')->label(__('filament.purchases.fields.category'))->required(),
@@ -179,6 +210,7 @@ class PurchaseResource extends Resource
                     ->openable(),
                 // Status temporarily hidden as requested
             ]);
+
     }
 
     public static function table(Table $table): Table
@@ -187,7 +219,9 @@ class PurchaseResource extends Resource
             ->poll('2s')
             ->columns([
                 Tables\Columns\TextColumn::make('lab.name')->label(__('filament.purchases.fields.lab'))->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('labCategory.name')->label(__('filament.purchases.fields.category'))->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('lab_category_name')
+                    ->label(__('filament.purchases.fields.category'))
+                    ->getStateUsing(fn (Purchase $record) => $record->labCategory?->name ?? '—'),
                 Tables\Columns\TextColumn::make('labType.name')->label(__('filament.purchases.fields.type'))->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('user.pharmacist_name')
                     ->label(__('filament.purchases.fields.pharmacy'))

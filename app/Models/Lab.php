@@ -27,4 +27,9 @@ class Lab extends Model
     {
         return $this->hasMany(TradeOperation::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(LabCategory::class);
+    }
 }

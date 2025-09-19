@@ -31,9 +31,27 @@ protected static ?int $navigationSort = 90;
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->schema([
-            Forms\Components\TextInput::make('name')->label('Nom')->required()->maxLength(191),
-        ]);
+        return $schema
+            ->columns(1)
+            ->schema([
+                Forms\Components\TextInput::make('name')
+                    ->label('Nom')
+                    ->required()
+                    ->maxLength(191),
+                Forms\Components\Repeater::make('categories')
+                    ->label('Catégories du laboratoire')
+                    ->relationship('categories')
+                    ->minItems(0)
+                    ->reorderable()
+                    ->collapsible()
+                    ->grid(1)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nom de la catégorie')
+                            ->required()
+                            ->maxLength(191),
+                    ]),
+            ]);
     }
 
     public static function table(Table $table): Table
