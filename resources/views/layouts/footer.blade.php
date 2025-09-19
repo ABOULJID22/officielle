@@ -6,7 +6,7 @@
             <!-- Logo & description -->
 
             <div class="md:col-span-1">
-                <img src="{{ $siteSettings?->logo_path ? Storage::url($siteSettings->logo_path) : '/images/avater.png' }}" alt="Offitrade Logo" class="h-12 mb-4">
+                <img src="{{ $siteSettings?->logo_path ? Storage::url($siteSettings->logo_path) : '/images/logo.png' }}" alt="Offitrade Logo" class="h-12 mb-4">
                 <p class="text-sm mt-2 text-white/80 dark:text-gray-300">
                     {{ __('site.footer.desc') }}
                 </p>
