@@ -19,27 +19,50 @@ class HomeController extends Controller
             ->limit(3)
             ->get(['id','slug','title','content','cover_image','category_id','published_at']);
 
-        $siteSettings = SiteSetting::query()->latest('id')->first();
+    $onlyVideo = SiteSetting::query()->latest('id')->first(['presentationvideo_url','bgvideo_url']);
 
-        $fallback = asset('video/vide1.mp4');
-        $raw = $siteSettings?->presentationvideo_url;
+    $fallback = asset('video/vide1.mp4');
+    $raw = $onlyVideo?->presentationvideo_url;
         $resolved = $fallback;
         if (filled($raw)) {
             if (Str::startsWith($raw, ['http://', 'https://', '//'])) {
                 $resolved = $raw;
             } elseif (Str::startsWith($raw, ['/'])) {
                 $resolved = asset(ltrim($raw, '/'));
-            } elseif (Str::startsWith($raw, ['video/', 'videos/', 'images/', 'assets/', 'build/', 'storage/'])) {
+            } elseif (Str::startsWith($raw, ['videos/'])) {
+                $resolved = Storage::disk('public')->url($raw);
+            } elseif (Str::startsWith($raw, ['storage/', '/storage/'])) {
+                $resolved = asset(ltrim($raw, '/'));
+            } elseif (Str::startsWith($raw, ['video/', 'images/', 'assets/', 'build/'])) {
                 $resolved = asset($raw);
             } else {
                 $resolved = Storage::disk('public')->url($raw);
             }
         }
 
+        $bgFallback = asset('video/vide2.mp4');
+        $bgRaw = $onlyVideo?->bgvideo_url;
+        $bgResolved = $bgFallback;
+        if (filled($bgRaw)) {
+            if (Str::startsWith($bgRaw, ['http://', 'https://', '//'])) {
+                $bgResolved = $bgRaw;
+            } elseif (Str::startsWith($bgRaw, ['/'])) {
+                $bgResolved = asset(ltrim($bgRaw, '/'));
+            } elseif (Str::startsWith($bgRaw, ['videos/'])) {
+                $bgResolved = Storage::disk('public')->url($bgRaw);
+            } elseif (Str::startsWith($bgRaw, ['storage/', '/storage/'])) {
+                $bgResolved = asset(ltrim($bgRaw, '/'));
+            } elseif (Str::startsWith($bgRaw, ['video/', 'images/', 'assets/', 'build/'])) {
+                $bgResolved = asset($bgRaw);
+            } else {
+                $bgResolved = Storage::disk('public')->url($bgRaw);
+            }
+        }
+
         return view('welcome', [
             'posts' => $posts,
-            'siteSettings' => $siteSettings,
             'presentationVideoSrc' => $resolved,
+            'bgVideoSrc' => $bgResolved,
         ]);
     }
 }

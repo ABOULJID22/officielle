@@ -35,8 +35,9 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
               <!-- Video Background -->
               <video autoplay muted loop playsinline 
                 class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75 saturate-125">
-                <source src="/video/vide2.mp4" type="video/mp4" />
+                <source src="{{ $bgVideoSrc }}" type="video/mp4" />
                 {{ __('site.hero.video_not_supported') }}
+
               </video>
 
               <!-- Overlay foncé -->
@@ -133,7 +134,8 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
     <!-- Vidéo locale -->
     <video id="servicesVideo" class="absolute inset-0 w-full h-full object-cover"
       src="{{ $presentationVideoSrc }}" preload="metadata"
-      autoplay muted loop playsinline></video>
+      autoplay muted loop playsinline>
+    </video>
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>

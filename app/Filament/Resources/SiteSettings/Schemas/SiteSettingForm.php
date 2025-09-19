@@ -49,15 +49,20 @@ class SiteSettingForm
                 TextInput::make('youtube_url')
                     ->url()
                     ->default(null),
-                TextInput::make('bgvideo_url')
+                FileUpload::make('bgvideo_url')
                     ->label('Background video URL')
-                    ->url()
-                    ->default(null),
-                TextInput::make('presentationvideo_url')
+                    ->default(null)
+                    ->visibility('public')
+                    ->disk('public')
+                    ->directory('videos')
+                    ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg']),
+                FileUpload::make('presentationvideo_url')
                     ->label('Presentation video URL')
-                    ->url()
-                    ->default(null),
-                TextInput::make('video_id')
+                    ->default(null)
+                    ->visibility('public')
+                    ->disk('public')
+                    ->directory('videos')
+                    ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg']),                TextInput::make('video_id')
                     ->default(null),
             ]);
     }
