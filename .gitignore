@@ -16,6 +16,12 @@
 /node_modules/
 /public/build/
 /public/hot
+/# Large media
+/public/video/*
+*.mp4
+*.mov
+*.avi
+*.mkv
 
 # Databases & caches
 /database/*.sqlite
