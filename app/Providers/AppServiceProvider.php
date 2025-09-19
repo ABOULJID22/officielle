@@ -37,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
                 $cached = SiteSetting::query()->latest('id')->first();
             }
             $view->with('siteSettings', $cached);
+
+            $fallback = asset('video/vide1.mp4');
+            $src = $cached?->presentationvideo_url;
+            $view->with('presentationVideoSrc', filled($src) ? $src : $fallback);
         });
 
         // Ensure Livewire component is explicitly registered (name -> class)

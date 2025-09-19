@@ -132,7 +132,7 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
   <div class="relative w-full max-w-[300px] sm:max-w-[340px] lg:max-w-[380px] aspect-[9/16] rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-500 ring-2 ring-white/20">
     <!-- Vidéo locale -->
     <video id="servicesVideo" class="absolute inset-0 w-full h-full object-cover"
-      src="{{ asset('video/vide1.mp4') }}" preload="metadata"
+      src="{{ $presentationVideoSrc }}" preload="metadata"
       autoplay muted loop playsinline></video>
 
     <!-- Overlay -->
