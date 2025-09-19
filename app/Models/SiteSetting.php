@@ -21,5 +21,7 @@ class SiteSetting extends Model
         'instagram_url',
         'youtube_url',
         'video_id',
+        'bgvideo_url',
+        'presentationvideo_url',
     ];
 }

@@ -16,6 +16,8 @@ class SiteSettingsTable
             ->columns([
                 TextColumn::make('email')->label('Email')->searchable(),
                 TextColumn::make('phone')->label('Téléphone')->searchable(),
+                TextColumn::make('bgvideo_url')->label('BG Video')->toggleable(),
+                TextColumn::make('presentationvideo_url')->label('Presentation Video')->toggleable(),
                 TextColumn::make('video_id')->label('Video ID')->toggleable(),
                 TextColumn::make('updated_at')->label('Maj')->since()->sortable(),
             ])

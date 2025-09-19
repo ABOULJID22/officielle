@@ -49,6 +49,14 @@ class SiteSettingForm
                 TextInput::make('youtube_url')
                     ->url()
                     ->default(null),
+                TextInput::make('bgvideo_url')
+                    ->label('Background video URL')
+                    ->url()
+                    ->default(null),
+                TextInput::make('presentationvideo_url')
+                    ->label('Presentation video URL')
+                    ->url()
+                    ->default(null),
                 TextInput::make('video_id')
                     ->default(null),
             ]);
