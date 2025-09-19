@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -8,16 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SecurityReportController;
 use App\Http\Controllers\PharmacistRequestController;
 use App\Models\Post;
-Route::get('/', function () {
-    $posts = Post::query()
-        ->with('category')
-        ->where('status', 'published')
-        ->whereNotNull('published_at')
-        ->orderByDesc('published_at')
-        ->limit(3)
-        ->get(['id','slug','title','content','cover_image','category_id','published_at']);
-    return view('welcome', compact('posts'));
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
