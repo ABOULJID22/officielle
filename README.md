@@ -59,4 +59,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Documentation du projet
+
+- [Guide de déploiement sur Hostinger](DEPLOY_HOSTINGER.md) - Instructions complètes pour déployer l'application sur Hostinger
+- [Commandes Git](GIT_COMMANDS.md) - Guide des commandes Git pour sauvegarder et gérer vos modifications
+
 # offitrade
