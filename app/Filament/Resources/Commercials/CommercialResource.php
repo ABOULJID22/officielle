@@ -35,18 +35,32 @@ class CommercialResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->schema([
-            Forms\Components\TextInput::make('name')->label('Nom')->required()->maxLength(191),
-            Forms\Components\TextInput::make('contact')->label('Contact')->maxLength(191),
-            Forms\Components\Select::make('clients')
-                ->label('Pharmacies assignées')
-                ->relationship('clients', 'name', function ($query) {
-                    return $query->whereHas('roles', fn ($q) => $q->where('name', 'client'));
-                })
-                ->multiple()
-                ->searchable()
-                ->preload(),
-        ]);
+        return $schema
+            ->schema([
+                Forms\Components\Section::make('Formulaire Commercial')
+                    ->description('Informations du commercial et assignation des pharmacies.')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nom')
+                            ->placeholder('Ex: Ahmed El Fassi')
+                            ->required()
+                            ->maxLength(191),
+                        Forms\Components\TextInput::make('contact')
+                            ->label('Contact')
+                            ->placeholder('Téléphone ou email')
+                            ->maxLength(191),
+                        Forms\Components\Select::make('clients')
+                            ->label('Pharmacies assignées')
+                            ->relationship('clients', 'name', function ($query) {
+                                return $query->whereHas('roles', fn ($q) => $q->where('name', 'client'));
+                            })
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->columnSpanFull(),
+                    ]),
+            ]);
     }
 
     public static function table(Table $table): Table
