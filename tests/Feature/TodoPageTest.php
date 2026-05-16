@@ -6,8 +6,12 @@ use Tests\TestCase;
 
 class TodoPageTest extends TestCase
 {
-    public function test_todo_page_is_accessible(): void
+    public function testTodoPageIsAccessible(): void
     {
-        $this->get('/todo')->assertOk();
+        $this->get('/todo')
+            ->assertOk()
+            ->assertSee('Formulaire de tâches adapté au design Offitrade', false)
+            ->assertSee('id="todo-form"', false)
+            ->assertSee('id="todo-list"', false);
     }
 }

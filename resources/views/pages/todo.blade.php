@@ -75,6 +75,15 @@
                 const date = document.getElementById('todo-date').value;
                 const priority = document.getElementById('todo-priority').value;
                 const description = document.getElementById('todo-description').value.trim();
+                const allowedPriorities = ['Basse', 'Moyenne', 'Haute'];
+
+                if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                    return;
+                }
+
+                if (!allowedPriorities.includes(priority)) {
+                    return;
+                }
 
                 const li = document.createElement('li');
                 li.className = 'rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4';
