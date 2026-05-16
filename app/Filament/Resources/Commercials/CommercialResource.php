@@ -38,6 +38,7 @@ class CommercialResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\Section::make('Formulaire Commercial')
+                    ->description("Aucune section de notification SMS n'est incluse.")
                     ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('name')
@@ -57,7 +58,6 @@ class CommercialResource extends Resource
                             ->multiple()
                             ->searchable()
                             ->preload()
-                            ->helperText("Aucune section de notification SMS n'est incluse.")
                             ->columnSpanFull(),
                     ]),
             ]);
