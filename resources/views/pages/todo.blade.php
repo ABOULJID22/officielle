@@ -88,7 +88,7 @@
                 }
 
                 if (date) {
-                    const parsedDate = new Date(`${date}T00:00:00`);
+                    const parsedDate = new Date(date);
                     if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) {
                         error.textContent = 'Date invalide.';
                         error.classList.remove('hidden');
