@@ -7,7 +7,7 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
-    <link rel="icon" type="image/png" href="{{ $siteSettings?->favicon_path ? Storage::url($siteSettings->favicon_path) : asset('favicon.png') }}" />
+    <link rel="icon" type="image/png" href="{{ isset($siteSettings) && $siteSettings?->favicon_path ? Storage::url($siteSettings->favicon_path) : asset('favicon.png') }}" />
 </head>
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 mt-8">
     @include('layouts.navbar')
@@ -78,18 +78,37 @@
 
                 const li = document.createElement('li');
                 li.className = 'rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4';
-                li.innerHTML = `
-                    <div class="flex items-start justify-between gap-4">
-                        <div>
-                            <p class="font-semibold">${title}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">${description || 'Aucune description'}</p>
-                            <p class="text-xs text-gray-500 mt-2">Date: ${date || '-'} • Priorité: ${priority}</p>
-                        </div>
-                        <button type="button" class="text-sm text-red-600 hover:text-red-700">Supprimer</button>
-                    </div>
-                `;
 
-                li.querySelector('button').addEventListener('click', () => li.remove());
+                const row = document.createElement('div');
+                row.className = 'flex items-start justify-between gap-4';
+
+                const content = document.createElement('div');
+
+                const titleEl = document.createElement('p');
+                titleEl.className = 'font-semibold';
+                titleEl.textContent = title;
+
+                const descriptionEl = document.createElement('p');
+                descriptionEl.className = 'text-sm text-gray-600 dark:text-gray-300 mt-1';
+                descriptionEl.textContent = description || 'Aucune description';
+
+                const metaEl = document.createElement('p');
+                metaEl.className = 'text-xs text-gray-500 mt-2';
+                metaEl.textContent = `Date: ${date || '-'} • Priorité: ${priority}`;
+
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'text-sm text-red-600 hover:text-red-700';
+                removeButton.textContent = 'Supprimer';
+
+                content.appendChild(titleEl);
+                content.appendChild(descriptionEl);
+                content.appendChild(metaEl);
+                row.appendChild(content);
+                row.appendChild(removeButton);
+                li.appendChild(row);
+
+                removeButton.addEventListener('click', () => li.remove());
                 list.prepend(li);
                 form.reset();
             });
