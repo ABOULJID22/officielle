@@ -10,8 +10,8 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Super Admin
-    $email = env('SEED_ADMIN_EMAIL') ?: 'contact@offitrade.fr';
-    $plainPassword = env('SEED_ADMIN_PASSWORD');
+        $email = env('SEED_ADMIN_EMAIL');
+        $plainPassword = env('SEED_ADMIN_PASSWORD');
 
         if (! $plainPassword) {
             // Generate a secure password for local/dev environments

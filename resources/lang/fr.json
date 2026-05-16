@@ -57,18 +57,19 @@
     "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "Merci pour votre inscription ! Avant de commencer, pouvez-vous vérifier votre adresse e-mail en cliquant sur le lien que nous venons de vous envoyer ? Si vous n'avez pas reçu l'e-mail, nous vous en renverrons volontiers un autre.",
     "A new verification link has been sent to the email address you provided during registration.": "Un nouveau lien de vérification a été envoyé à l'adresse e-mail que vous avez fournie lors de l'inscription.",
     "Resend Verification Email": "Renvoyer l'e-mail de vérification",
-    "Log Out": "Se déconnecter",
+    "Log Out": "Déconnexion",
     "filament.nav.resources.purchases": "Achats",
     "filament.nav.resources.trade": "Opérations Trade",
     "filament.nav.resources.labs": "Nom_Labo",
     "filament.nav.resources.products": "Produits",
-    "filament.nav.resources.noservices": "Nos services",
+    "filament.nav.resources.noservices":"Nos services",
 
     "filament.resources.noservices.label": "Service",
     "filament.resources.noservices.plural": "Services",
     "filament.resources.noservices.pages.index": "Liste des services",
     "filament.resources.noservices.pages.create": "Créer un service",
     "filament.resources.noservices.pages.edit": "Modifier le service",
+
 
     "filament.purchases.fields.pharmacy": "Pharmacie",
     "filament.purchases.fields.lab": "Nom_Labo",
@@ -199,7 +200,7 @@
     "pages.privacy.last_updated": "Dernière mise à jour : 18 septembre 2025",
 
     "pages.legal.title": "Mentions légales",
-    "pages.legal.content_html": "<p>Ce site est édité par <strong>Offitrade</strong>, société responsable de la publication et du contenu.</p>\n\n<h2>Éditeur du site</h2>\n<ul>\n<li><strong>Dénomination :</strong> Offitrade</li>\n<li><strong>Adresse :</strong> 14 rue Beffory, 92200 Neuilly-sur-Seine, France</li>\n<li><strong>Email :</strong> <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></li>\n\n\n\n<h2>Propriété intellectuelle</h2>\n<p>Tous les contenus présents sur ce site, y compris textes, images, logos, vidéos et icônes, sont la propriété exclusive d’<strong>Offitrade</strong> ou de ses partenaires. Toute reproduction, modification ou redistribution sans autorisation écrite est strictement interdite.</p>\n\n<h2>Collecte de données personnelles</h2>\n<p>Les informations recueillies via les formulaires de contact ou d’inscription sont utilisées uniquement pour le traitement des demandes. Conformément au RGPD, vous pouvez exercer vos droits d’accès, de rectification ou de suppression en contactant <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a>.</p>\n\n\n\n<h2>Responsabilité</h2>\n<p>Offitrade s’efforce de fournir des informations fiables et à jour. Toutefois, nous ne pouvons garantir l’exactitude complète des contenus et déclinons toute responsabilité pour toute erreur ou omission.</p>\n\n<h2>Contact</h2>\n<p>Pour toute question concernant les mentions légales, vous pouvez nous contacter à l’adresse suivante : <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></p>",
+    "pages.legal.content_html": "<p>Ce site est édité par <strong>Offitrade</strong>, société responsable de la publication et du contenu.</p>\n\n<h2>Éditeur du site</h2>\n<ul>\n<li><strong>Dénomination :</strong> Offitrade</li>\n<li><strong>Adresse :</strong> 14 rue Beffory, 92200 Neuilly-sur-Seine, France</li>\n<li><strong>Email :</strong> contact@offitrade.fr</li>\n\n\n\n<h2>Propriété intellectuelle</h2>\n<p>Tous les contenus présents sur ce site, y compris textes, images, logos, vidéos et icônes, sont la propriété exclusive d’<strong>Offitrade</strong> ou de ses partenaires. Toute reproduction, modification ou redistribution sans autorisation écrite est strictement interdite.</p>\n\n<h2>Collecte de données personnelles</h2>\n<p>Les informations recueillies via les formulaires de contact ou d’inscription sont utilisées uniquement pour le traitement des demandes. Conformément au RGPD, vous pouvez exercer vos droits d’accès, de rectification ou de suppression en contactant <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a>.</p>\n\n\n\n<h2>Responsabilité</h2>\n<p>Offitrade s’efforce de fournir des informations fiables et à jour. Toutefois, nous ne pouvons garantir l’exactitude complète des contenus et déclinons toute responsabilité pour toute erreur ou omission.</p>\n\n<h2>Contact</h2>\n<p>Pour toute question concernant les mentions légales, vous pouvez nous contacter à l’adresse suivante : <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></p>",
     "pages.legal.last_updated": "Dernière mise à jour : 18 septembre 2025"
     ,
     "pages.legal.publisher_details_heading": "Détails de l'éditeur",
@@ -457,10 +458,10 @@
     "services.hero.title": "Nos services",
     "services.hero.subtitle": "Nous optimisons la performance de votre pharmacie, de l’achat jusqu’au comptoir.",
     "services.hero.description1": "Chez Offitrade, nous accompagnons les pharmaciens dans l’optimisation de leurs achats, de leur rentabilité et de leur organisation opérationnelle. Notre approche est simple : ",
-    "services.hero.description2": "vous faire gagner du temps, améliorer vos marges et structurer durablement votre performance.",
+    "services.hero.description2": "Vous faire gagner du temps, améliorer vos marges et structurer durablement votre performance.",
     "services.buttons.contact": "Nous contacter",
     "services.buttons.promise": "Notre promesse",
-    "services.grid.title": "Nous intervenons sur 4 grands leviers",
+    "services.grid.title": "Les leviers sur lesquels nous intervenons",
     "services.card.result": "Résultat",
     "services.card.empty": "Aucun service trouvé. Veuillez ajouter des services via l’administration.",
     "services.promise.title": "Notre promesse",

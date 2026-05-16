@@ -10,18 +10,7 @@
     
     
     <!-- Abstract Animated Background -->
-                  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                      <!-- Decorative blobs (desktop only): top-right & bottom-left -->
-                      <div class="hidden md:block absolute -top-28 -right-20 w-96 h-96 bg-white/8 rounded-full blur-3xl opacity-25"></div>
-                      <div class="hidden md:block absolute -bottom-28 -left-20 w-80 h-80 bg-white/8 rounded-full blur-2xl opacity-20"></div>
-
-                      <!-- Main animated blobs: one top-right, one bottom-left -->
-                      <div class="absolute -top-6 -right-8 w-64 h-64 bg-white/10 rounded-full mix-blend-overlay animate-blob"></div>
-                      <div class="absolute -bottom-10 -left-8 w-72 h-72 bg-white/12 rounded-full mix-blend-overlay animate-blob animation-delay-2000"></div>
-
-                      <!-- Subtle accent (small) for balance -->
-                      <div class="absolute right-1/3 bottom-6 w-40 h-40 bg-white/6 rounded-full mix-blend-overlay animate-blob animation-delay-4000"></div>
-                  </div>
+                
                 
     <!-- Contenu du footer -->
     <div class="relative z-10 max-w-7xl mx-auto px-6">

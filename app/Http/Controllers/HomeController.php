@@ -19,7 +19,7 @@ class HomeController extends Controller
             ->limit(3)
             ->get(['id','slug','title','content','cover_image','category_id','published_at']);
 
-    $onlyVideo = SiteSetting::query()->latest('id')->first(['presentationvideo_url','bgvideo_url']);
+    $onlyVideo = SiteSetting::query()->latest('id')->first();
 
     $fallback = asset('video/vide1.mp4');
     $raw = $onlyVideo?->presentationvideo_url;

@@ -42,19 +42,13 @@ return [
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
         ],
-/* 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=OffiTradebdtest2
-DB_USERNAME=root
-DB_PASSWORD= */
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'OffiTradebdtest2'),
+            'database' => env('DB_DATABASE', 'laravel'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),

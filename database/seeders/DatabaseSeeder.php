@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
 
             // Content
             PostSeeder::class,
+            EventSeeder::class,
             BackfillTranslationsSeeder::class,
         ]);
     }

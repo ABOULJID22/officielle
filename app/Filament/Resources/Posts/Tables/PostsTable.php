@@ -46,24 +46,37 @@ class PostsTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                Action::make('view')
-                    ->label('View')
-                    ->icon('heroicon-m-eye')
-                    ->url(fn ($record) => route('pages.blog.show', $record->slug))
-                    ->openUrlInNewTab()
-                    ->button(),
+    Action::make('view')
+        ->label('')
+        ->icon('heroicon-m-eye')
+        ->url(fn ($record) => route('pages.blog.show', $record->slug))
+        ->openUrlInNewTab()
+        ->color('info')
+        ->button()
+        ->extraAttributes([
+            'class' => 'text-sm px-1 py-1 rounded-md font-medium', 
+            'title' => 'Voir',
+        ]),
 
-                EditAction::make()
-                    ->label('Edit')
-                    ->icon('heroicon-m-pencil-square')
-                    ->button(),
+    EditAction::make()
+        ->label(__('filament.actions.edit'))
+        ->icon('heroicon-m-pencil-square')
+        ->button()
+        ->extraAttributes([
+            'class' => 'text-sm px-3 py-1 rounded-md font-medium',
+        ]),
 
-                DeleteAction::make()
-                    ->label('Delete')
-                    ->icon('heroicon-m-trash')
-                    ->button()
-                    ->color('danger'),
-            ])
+    DeleteAction::make()
+        ->label('') 
+        ->icon('heroicon-m-trash')
+        ->button()
+        ->color('danger')
+        ->extraAttributes([
+            'class' => 'px-1 py-1 rounded-md font-medium',
+            'title' => 'Supprimer',
+        ]),
+])
+
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

@@ -20,7 +20,15 @@ class NoserviceResource extends Resource
 
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-puzzle-piece';
 
-    // Translation-ready navigation label
+    // Use the French title attribute as the record title (falls back to English via accessors)
+    protected static ?string $recordTitleAttribute = 'titre';
+    protected static ?int $navigationSort = 90;
+    public static function form(Schema $schema): Schema
+    {
+        return NoserviceForm::configure($schema);
+    }
+// Translation-ready navigation label
+     // Translation-ready navigation label
     protected static ?string $navigationLabel = null;
 
     public static function getNavigationLabel(): string
@@ -37,15 +45,6 @@ class NoserviceResource extends Resource
     {
         return __('filament.resources.noservices.plural');
     }
-
-    // Use the French title attribute as the record title (falls back to English via accessors)
-    protected static ?string $recordTitleAttribute = 'titre';
-    protected static ?int $navigationSort = 90;
-    public static function form(Schema $schema): Schema
-    {
-        return NoserviceForm::configure($schema);
-    }
-
     public static function table(Table $table): Table
     {
         return NoservicesTable::configure($table);

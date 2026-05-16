@@ -21,7 +21,7 @@ class SendEventReminders extends Command
         $tz = config('app.timezone', 'UTC');
         $start = Carbon::now($tz)->addDays($days)->startOfDay();
         $end = Carbon::now($tz)->addDays($days)->endOfDay();
- 
+
         $events = Event::query()
             ->whereBetween('start_at', [$start, $end])
             ->get();

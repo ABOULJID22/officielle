@@ -40,12 +40,11 @@ class CategoriesTable
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('Edit')
+                    ->label(__('filament.actions.edit'))
                     ->icon('heroicon-m-pencil-square')
                     ->button(),
 
                 DeleteAction::make()
-                    ->label('Delete')
                     ->icon('heroicon-m-trash')
                     ->button()
                     ->color('danger'),

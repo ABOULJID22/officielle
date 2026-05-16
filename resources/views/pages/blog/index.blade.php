@@ -79,9 +79,9 @@
           @php
             $img = $post->cover_image ? Storage::url($post->cover_image) : asset('images/img1.jpg');
           @endphp
-          <article class="group flex flex-col h-full overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-xl  dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 backdrop-blur-md rounded-2xl p-5 border-l-4 border-[#4f6ba3] transition-transform duration-300 hover:-translate-y-1 hover:shadow-strong">
+          <article class="group flex flex-col h-full overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-xl  dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 backdrop-blur-md rounded-2xl  border-l-4 border-[#4f6ba3] transition-transform duration-300 hover:-translate-y-1 hover:shadow-strong">
             {{-- Image Container --}}
-            <div class="relative overflow-hidden aspect-[16/9] w-full">
+            <div class="relative overflow-hidden aspect-[16/9] w-full rounded-2xl">
               <img src="{{ $img }}" 
                    alt="{{ $post->translation()?->title ?? $post->title }}" 
                    loading="lazy" 

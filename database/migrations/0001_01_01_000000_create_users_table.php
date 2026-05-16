@@ -20,20 +20,25 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            // Profile fields
-            $table->string('profile_photo_path')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('phone_2')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('country')->nullable();
-            $table->string('job_title')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->string('avatar_url')->nullable();
-            $table->timestamp('last_login_at')->nullable();
+                // Ajout des champs de profil (consolidés depuis migrations "add_*")
+                $table->string('profile_photo_path')->nullable();
+                $table->string('first_name')->nullable();
+                $table->string('last_name')->nullable();
+                $table->string('phone')->nullable();
+                $table->string('phone_2')->nullable();
+                $table->string('address')->nullable();
+                $table->string('city')->nullable();
+                $table->string('postal_code')->nullable();
+                $table->string('country')->nullable();
+                $table->string('job_title')->nullable();
+                $table->boolean('is_active')->default(true);
+                $table->string('avatar_url')->nullable();
+                $table->timestamp('last_login_at')->nullable();
+                $table->string('pharmacist_name')->nullable();
+                $table->string('registration_number')->nullable();
+                $table->string('pharmacy_name')->nullable();
+                $table->string('pharmacy_address')->nullable();
+                $table->string('pharmacy_phone')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

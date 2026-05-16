@@ -12,7 +12,6 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
-// Centralises the bilingual post form so create & edit pages stay in sync.
 class PostForm
 {
     public static function configure(Schema $schema): Schema
@@ -132,7 +131,7 @@ class PostForm
                             ->directory('cover_image')
                             ->columnSpan(['lg' => 2]),
                     ]),
- 
+
                 Section::make('Publication')
                     ->icon('heroicon-o-calendar-days')
                     ->description('Paramétrez la diffusion de l’article depuis un même endroit.')

@@ -26,6 +26,7 @@ use Filament\Actions\Action;
 use App\Http\Middleware\SetLocaleFromSession;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use App\Filament\Pages\Calendar as CalendarPage;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -45,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
+                CalendarPage::class,
             ])
             //->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([

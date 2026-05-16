@@ -12,11 +12,5 @@ export default defineConfig({
             refresh: true,
         }),
         
-       /*  filament({
-            // permet à Filament de compiler ses assets + ton thème
-            themes: [
-                'resources/css/filament/admin/theme.css',
-            ],
-        }), */
     ],
 });

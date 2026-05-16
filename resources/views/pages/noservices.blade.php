@@ -36,23 +36,23 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
         <div class="relative overflow-hidden dark:bg-gray-900/90 bg-gradient-to-br from-[#4f6ba3] to-[#283043]">
 
             <!-- Abstract background elements -->
-            <div class="container mx-auto px-4 py-12 md:py-20 lg:py-32">
-                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
+            <div class="container mx-auto px-4 py-20 md:py-32">
+                 <div class="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16">
                       
                       <!-- Left Column: Title & Subtitle -->
-                      <div class="order-1 flex-1 text-center md:text-left text-white max-w-3xl z-10 w-full">
-                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 drop-shadow-sm">
+                      <div class="order-1 flex-1 text-center md:text-left text-white max-w-3xl z-10">
+                            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-2 drop-shadow-sm">
                                 <span class="block bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
                                     {{ __('services.hero.title') }}
                                 </span>
                             </h1>
-                            <p class="text-base sm:text-lg md:text-xl text-blue-100/90 font-light leading-relaxed max-w-xl mx-auto md:mx-0 border-l-4 border-[#6e94c3] pl-4 md:pl-6 text-left">
+                            <p class="text-lg md:text-xl text-blue-100/90 font-light leading-relaxed max-w-xl mr-auto border-l-4 border-[#6e94c3] pl-6">
                                 {{ __('services.hero.subtitle') }}
                             </p>
                       </div>
 
                       <!-- Right Column: Buttons -->
-                      <div class="order-2 w-full md:w-auto z-10 mt-8 md:mt-0 flex justify-center md:justify-end">
+                      <div class="order-2 w-full md:w-auto z-10 mb-8 md:mb-0 flex justify-center md:justify-end">
                             <a href="{{ route('home') }}#contact" class="group relative flex items-center justify-center px-8 py-4 bg-white text-[#4f6ba3] font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 text-center w-full sm:w-auto">
                                 <span class="relative flex items-center gap-2 ">
                                     {{ __('services.buttons.contact') }}
@@ -65,18 +65,18 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
         </div>
         
         <!-- Floating Mission Statement - Straddling the two sections -->
-        <div class="container mx-auto px-4 relative z-20 -mt-16 sm:-mt-24 lg:-mt-32">
-             <div class="relative bg-white dark:bg-gray-900/50 dark:backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 max-w-5xl mx-auto text-center border border-gray-100 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group transition-all duration-300">
+        <div class="container mx-auto px-4 relative z-20 -mt-24 lg:-mt-32">
+             <div class="relative bg-white dark:bg-gray-900/50 dark:backdrop-blur-xl rounded-[2.5rem] p-6 md:p-10 max-w-5xl mx-auto text-center border border-gray-100 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden group transition-all duration-300">
                 <!-- Inner glow effect -->
                 <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                 
                 <!-- Decor element -->
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-1.5 bg-gradient-to-r from-transparent via-[#6e94c3] to-transparent rounded-b-full shadow-[0_0_15px_rgba(110,148,195,0.5)]"></div>
                 
-                <p class="text-gray-600 dark:text-blue-200 font-bold mb-4 md:mb-6 text-base sm:text-lg md:text-xl transition-colors duration-300">
+                <p class="text-gray-600 dark:text-blue-200 font-bold mb-4 md:mb-6 text-xl md:text-sm transition-colors duration-300">
                     {{ __('services.hero.description1') }}
                 </p>
-                <p class="text-xl sm:text-2xl md:text-3xl font-black text-[#283043] dark:text-white leading-tight tracking-tight drop-shadow-sm transition-colors duration-300">
+                <p class="text-lg md:text-xl lg:text-2xl font-black text-[#283043] dark:text-white leading-tight tracking-tight drop-shadow-sm transition-colors duration-300">
                     {{ __('services.hero.description2') }}
                 </p>
              </div>
@@ -107,9 +107,9 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
 
                 
                 <div class="inline-flex items-center justify-center w-full">
-                    <div class="h-px bg-gray-200 w-24"></div>
+                    <div class="h-px bg-gradient-to-r from-[#4f6ba3] to-transparent dark:bg-gradient-to-r dark:from--[#4f6ba3]  dark:to-transparent w-24"></div>
                     <span class="px-4 text-[#4f6ba3] font-bold text-lg  tracking-widest">{{ __('services.grid.title') }}</span>
-                    <div class="h-px bg-gray-200 w-24"></div>
+                    <div class="h-px bg-gradient-to-r from-[#4f6ba3] to-transparent dark:bg-gradient-to-r dark:from--[#4f6ba3]  dark:to-transparent  w-24"></div>
                 </div>
             </div>
 

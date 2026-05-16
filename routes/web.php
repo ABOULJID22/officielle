@@ -33,9 +33,6 @@ Route::view('/politique-de-confidentialite', 'pages.privacy')->name('privacy');
 // Page Pourquoi Offitrade
 Route::view('/pourquoi-offitrade', 'pages.pourquoi')->name('pourquoi');
 
-// Page Nos Services
-Route::view('/noservices', 'pages.noservices')->name('noservices');
-
 Route::fallback(function () {
     return response()->view('pages.404', [], 404);
 });
@@ -72,6 +69,105 @@ Route::get('/contact', function () {
     return view('pages.contact');
 });
 
+// Minimal iframe routes to render only the Filament create forms (no surrounding layout)
+Route::middleware('auth')->get('/admin/iframe/calendar/events/create', function () {
+    return view('filament.iframe.create-event');
+})->name('iframe.calendar.events.create');
+
+Route::middleware('auth')->get('/admin/iframe/calendar/notes/create', function () {
+    return view('filament.iframe.create-note');
+})->name('iframe.calendar.notes.create');
+
+// AJAX endpoints for calendar create actions used by the inline modals
+Route::middleware(['auth', 'web'])->post('/calendar/events', function (\Illuminate\Http\Request $request) {
+    $validated = $request->validate([
+        'title' => 'required|string|max:191',
+        'calendar_id' => 'nullable|integer|exists:users,id',
+        'start_at' => 'required|string',
+        'end_at' => 'nullable|string',
+        'description' => 'nullable|string',
+    ]);
+
+    // Normalize and parse datetimes. Expect format from datetime-local: 'YYYY-MM-DDTHH:MM[:SS]'
+    $startRaw = $validated['start_at'];
+    $endRaw = $validated['end_at'] ?? null;
+
+    try {
+        // Ensure seconds are present when possible
+        if (strpos($startRaw, 'T') !== false && preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $startRaw)) {
+            $startRaw .= ':00';
+        }
+        if ($endRaw && strpos($endRaw, 'T') !== false && preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $endRaw)) {
+            $endRaw .= ':00';
+        }
+
+        $startDt = \Carbon\Carbon::parse($startRaw);
+        $endDt = $endRaw ? \Carbon\Carbon::parse($endRaw) : null;
+    } catch (\Throwable $e) {
+        return response()->json(['error' => 'Invalid date format'], 422);
+    }
+
+    // Determine all_day: if both times are exactly at midnight and end is at 23:59:59 or absent, treat as all-day
+    $allDay = false;
+    if ($startDt->format('H:i:s') === '00:00:00' && (!$endDt || $endDt->format('H:i:s') === '23:59:59')) {
+        $allDay = true;
+    }
+
+    $event = \App\Models\Event::create([
+        'title' => $validated['title'],
+        'description' => $validated['description'] ?? null,
+        'start_at' => $startDt,
+        'end_at' => $endDt ?? $startDt,
+        'user_id' => $validated['calendar_id'] ?? null,
+        'created_by' => auth()->id(),
+        'all_day' => $allDay,
+    ]);
+
+    // Filament database notification to the calendar owner (and creator) about the new event
+    try {
+        $recipients = collect();
+        if (!empty($event->user_id)) {
+            $owner = \App\Models\User::find($event->user_id);
+            if ($owner) { $recipients->push($owner); }
+        }
+        // Also notify the creator if different
+        $creator = \App\Models\User::find($event->created_by);
+        if ($creator && ($recipients->isEmpty() || $creator->id !== $event->user_id)) {
+            $recipients->push($creator);
+        }
+
+        if ($recipients->isNotEmpty()) {
+            \Filament\Notifications\Notification::make()
+                ->title('Nouvel événement créé')
+                ->body(($event->title ?: 'Événement').' — '.($startDt->locale('fr_FR')->isoFormat('dddd D MMMM YYYY') . (!$allDay ? ' ' . $startDt->format('HH:mm') : '')))
+                ->icon('heroicon-o-calendar')
+                ->sendToDatabase($recipients);
+        }
+    } catch (\Throwable $e) {
+        // ignore notification errors
+    }
+
+    // Return the events for the current month to refresh calendar client-side
+    $start = now()->startOfMonth()->format('Y-m-d');
+    $end = now()->endOfMonth()->format('Y-m-d');
+    $events = \App\Http\Controllers\CalendarController::indexData($start, $end);
+    return response()->json($events);
+});
+
+Route::middleware(['auth', 'web'])->post('/calendar/notes', function (\Illuminate\Http\Request $request) {
+    $data = $request->validate([
+        'title' => 'required|string|max:191',
+        'content' => 'nullable|string',
+    ]);
+
+    $note = \App\Models\Note::create([
+        'title' => $data['title'],
+        'content' => $data['content'] ?? null,
+        'user_id' => auth()->id(),
+    ]);
+
+    return response()->json(['ok' => true, 'note' => $note]);
+});
 Route::get('/blog', [PostController::class, 'index'])->name('pages.blog.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('pages.blog.show'); // liaison par slug
 
@@ -112,6 +208,9 @@ Route::post('/client/support', function (\Illuminate\Http\Request $request) {
 })->name('client.support.submit')->middleware(['web', 'auth']);
 
 
+// Page Nos Services
+Route::view('/noservices', 'pages.noservices')->name('noservices');
+
 
 
 Route::get('/files/public/view/{path}', [AttachmentController::class, 'viewPublic'])
@@ -119,9 +218,18 @@ Route::get('/files/public/view/{path}', [AttachmentController::class, 'viewPubli
     ->name('attachments.public.view');
 
 
-// TODO: Implement PurchaseAttachmentController and TradeAttachmentController
-// Routes commented out until controllers are created:
-// Route::middleware(['auth', 'web'])->post('/purchases/attachments/delete', [\App\Http\Controllers\PurchaseAttachmentController::class, 'destroy'])->name('purchases.attachments.delete');
-// Route::middleware(['auth', 'web', 'signed'])->get('/purchases/attachments/delete-signed', [\App\Http\Controllers\PurchaseAttachmentController::class, 'destroySigned'])->name('purchases.attachments.delete.signed');
-// Route::middleware(['auth', 'web'])->post('/trades/attachments/delete', [\App\Http\Controllers\TradeAttachmentController::class, 'destroy'])->name('trades.attachments.delete');
-// Route::middleware(['auth', 'web', 'signed'])->get('/trades/attachments/delete-signed', [\App\Http\Controllers\TradeAttachmentController::class, 'destroySigned'])->name('trades.attachments.delete.signed');
+// Delete an attachment from a purchase (used by Filament modals/forms)
+Route::middleware(['auth', 'web'])->post('/purchases/attachments/delete', [\App\Http\Controllers\PurchaseAttachmentController::class, 'destroy'])
+    ->name('purchases.attachments.delete');
+
+// Fallback signed GET delete (useful for modal issues or JS-disabled clients)
+Route::middleware(['auth', 'web', 'signed'])->get('/purchases/attachments/delete-signed', [\App\Http\Controllers\PurchaseAttachmentController::class, 'destroySigned'])
+    ->name('purchases.attachments.delete.signed');
+
+// Delete an attachment from a trade operation (used by Filament modals/forms)
+Route::middleware(['auth', 'web'])->post('/trades/attachments/delete', [\App\Http\Controllers\TradeAttachmentController::class, 'destroy'])
+    ->name('trades.attachments.delete');
+
+// Fallback signed GET delete for trades (useful for modal issues or JS-disabled clients)
+Route::middleware(['auth', 'web', 'signed'])->get('/trades/attachments/delete-signed', [\App\Http\Controllers\TradeAttachmentController::class, 'destroySigned'])
+    ->name('trades.attachments.delete.signed');

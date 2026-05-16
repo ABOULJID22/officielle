@@ -8,4 +8,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateNoservice extends CreateRecord
 {
     protected static string $resource = NoserviceResource::class;
+    
 }

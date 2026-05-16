@@ -17,7 +17,7 @@
     <div class="max-w-5xl mx-auto px-6 lg:px-8">
 
       <!-- Fil d'Ariane -->
-      <nav aria-label="{{ __('site.aria.breadcrumb') }}" class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+      <nav aria-label="{{ __('site.aria.breadcrumb') }}" class="mb-8 mt-14 text-sm text-gray-500 dark:text-gray-400">
         <ol class="flex items-center gap-2">
           <li>
             <a href="{{ route('pages.blog.index') }}" class="link-underline-soft">
@@ -63,9 +63,9 @@
           @endif
         </div>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           {{ $post->translation()?->title ?? $post->title }}
-        </h1>
+        </h2>
 
         <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
           <span class="inline-flex items-center gap-2">
@@ -92,7 +92,7 @@
         </article>
       @else
         <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl p-8 text-center">
-          <p class="text-gray-500 dark:text-white italic">
+          <p class="text-black dark:text-white italic">
             {{ __('site.blog.no_content') }}
           </p>
         </div>

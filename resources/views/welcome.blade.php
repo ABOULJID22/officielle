@@ -35,7 +35,7 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
             <!-- Section Hero -->
             <section id="accueil" class="relative min-h-screen flex items-center justify-center overflow-hidden text-white">
               <!-- Video Background -->
-              <video autoplay  loop playsinline 
+              <video autoplay  loop playsinline muted preload="auto"
                 class="absolute inset-0 w-full h-full object-cover -z-10 brightness-75 saturate-125">
                 <source src="{{ $bgVideoSrc }}" type="video/mp4" />
                 {{ __('site.hero.video_not_supported') }}
@@ -613,6 +613,7 @@ ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none
 
 
 
+            <!-- FAQ Section -->
             <!-- FAQ Section -->
           <section id="faq" class="bg-white dark:bg-gray-900 py-12 sm:py-16 md:py-20">
             <div class="max-w-6xl mx-auto px-4 sm:px-6">

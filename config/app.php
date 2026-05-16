@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'offitrade'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,8 +84,6 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
-    /* 'locale' => 'fr',
-'fallback_locale' => 'en', */
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

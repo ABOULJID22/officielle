@@ -154,7 +154,7 @@
                                     @endif
 
                                     @if ($user?->hasAnyRole('client'))
-                                            <a href="{{ route('filament.admin.pages.dashboard') }}" target="_blank" class="flex text-[#4f6ba3] text-sm items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <a href="{{ route('filament.admin.pages.dashboard') }}" target="_blank" class="flex items-center text-[#4f6ba3] text-sm gap-2 rounded-lg px-3 py-2 transition hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 <svg class="h-4 w-4 text-[#4f6ba3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                                     <path d="M9 6V5a3 3 0 0 1 3-3 3 3 0 0 1 3 3v1" />
                                                     <path d="M4 9h16" />
@@ -167,7 +167,7 @@
 
                                     @if ($user?->hasRole('user') && !$user?->hasRole('client'))
                                         <a href="{{ route('pharmacist.request.create') }}" class="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm text-yellow-700 transition hover:bg-yellow-50 dark:text-yellow-400 dark:hover:bg-gray-700" role="menuitem">
-                                            <svg class="h-4 w-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6m3-3h-6"/></svg>
+                                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6m3-3h-6"/></svg>
                                             {{ __('site.pharmacist.request') }}
                                         </a>
                                     @endif
@@ -321,7 +321,7 @@
                             @endif
 
                             @if (Auth::user()?->hasAnyRole('client'))
-                                <a href="{{ route('filament.admin.pages.dashboard') }}" class="block w-full rounded-lg bg-[#4f6ba3] px-4 py-2.5 text-center text-sm font-semibold text-[#4f6ba3] shadow transition hover:bg-[#465a87]">
+                                <a href="{{ route('filament.admin.pages.dashboard') }}" class="block w-full rounded-lg bg-[#4f6ba3] px-4 py-2.5 text-center text-sm font-semibold text-white shadow transition hover:bg-[#465a87]">
                                     {{ __('site.auth.my_space') }}
                                 </a>
                             @endif

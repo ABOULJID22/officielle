@@ -29,13 +29,15 @@
     "filament.nav.resources.trade": "Trade",
     "filament.nav.resources.labs": "Labs",
     "filament.nav.resources.products": "Products",
-    "filament.nav.resources.noservices": "Services",
-
+        
+    "filament.nav.resources.noservices":"Our Services",
     "filament.resources.noservices.label": "Service",
     "filament.resources.noservices.plural": "Services",
     "filament.resources.noservices.pages.index": "Services list",
     "filament.resources.noservices.pages.create": "Create a service",
     "filament.resources.noservices.pages.edit": "Edit service",
+
+
 
     "filament.purchases.fields.pharmacy": "Pharmacy",
     "filament.purchases.fields.lab": "Lab",
@@ -179,7 +181,7 @@
     "pages.privacy.last_updated": "Last updated: September 18, 2025",
 
     "pages.legal.title": "Legal Notice",
-    "pages.legal.content_html": "<p>This site is published by <strong>Offitrade</strong>, the company responsible for publication and content.</p>\n\n<h2>Site publisher</h2>\n<ul>\n<li><strong>Name:</strong> Offitrade</li>\n<li><strong>Address:</strong> 14 rue Beffory, 92200 Neuilly-sur-Seine, France</li>\n<li><strong>Email:</strong> <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></li>\n\n<h2>Intellectual property</h2>\n<p>All content on this site, including texts, images, logos, videos and icons, is the exclusive property of <strong>Offitrade</strong> or its partners. Reproduction, modification or redistribution without written permission is prohibited.</p>\n\n<h2>Collection of personal data</h2>\n<p>Information collected via contact or registration forms is used only to process requests. Under GDPR you can exercise your rights by contacting <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a>.</p>\n\n\n\n<h2>Liability</h2>\n<p>Offitrade strives to provide reliable and up-to-date information. However, we cannot guarantee complete accuracy and disclaim liability for any errors or omissions.</p>\n\n<h2>Contact</h2>\n<p>For questions regarding the legal notice you can contact us at: <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></p>",
+    "pages.legal.content_html": "<p>This site is published by <strong>Offitrade</strong>, the company responsible for publication and content.</p>\n\n<h2>Site publisher</h2>\n<ul>\n<li><strong>Name:</strong> Offitrade</li>\n<li><strong>Address:</strong> 14 rue Beffory, 92200 Neuilly-sur-Seine, France</li>\n<li><strong>Email:</strong> contact@offitrade.fr </li>\n\n<h2>Intellectual property</h2>\n<p>All content on this site, including texts, images, logos, videos and icons, is the exclusive property of <strong>Offitrade</strong> or its partners. Reproduction, modification or redistribution without written permission is prohibited.</p>\n\n<h2>Collection of personal data</h2>\n<p>Information collected via contact or registration forms is used only to process requests. Under GDPR you can exercise your rights by contacting <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a>.</p>\n\n\n\n<h2>Liability</h2>\n<p>Offitrade strives to provide reliable and up-to-date information. However, we cannot guarantee complete accuracy and disclaim liability for any errors or omissions.</p>\n\n<h2>Contact</h2>\n<p>For questions regarding the legal notice you can contact us at: <a href=\"mailto:contact@offitrade.fr\">contact@offitrade.fr</a></p>",
     "pages.legal.last_updated": "Last updated: September 18, 2025"
     ,
     "pages.legal.publisher_details_heading": "Publisher details",
@@ -425,16 +427,17 @@
 
     "postForm.reading_time.label": "Reading time (min)",
     "postForm.reading_time.placeholder": "Auto-calculated if not set",
-    "postForm.reading_time.helper": "Specify a value only if you want to override the automatic calculation.",
+    "postForm.reading_time.helper": "Specify a value only if you want to override the automatic calculation."
+,
 
     "services.page.title": "Services",
     "services.hero.title": "Our Services",
     "services.hero.subtitle": "We optimize your pharmacy's performance, from purchasing to the counter.",
     "services.hero.description1": "At Offitrade, we support pharmacists in optimizing their purchases, profitability, and operational organization. Our approach is simple: ",
-    "services.hero.description2": "save you time, improve your margins, and sustainably structure your performance.",
+    "services.hero.description2": "Save you time, improve your margins, and sustainably structure your performance.",
     "services.buttons.contact": "Contact Us",
     "services.buttons.promise": "Our Promise",
-    "services.grid.title": "We operate on 4 main levers",
+    "services.grid.title": "The levers we intervene on",
     "services.card.result": "Result",
     "services.card.empty": "No services found. Please add services via the administration.",
     "services.promise.title": "Our Promise",

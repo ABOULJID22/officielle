@@ -10,6 +10,8 @@ return [
             'support' => 'Support',
             'pharmacies' => 'Pharmacies',
             'users' => 'Utilisateurs',
+            'noservices'=>'Nos services'
+
         ],
         'resources' => [
             'dashboard' => 'Tableau de bord',
@@ -43,7 +45,10 @@ return [
         'download_template' => 'Télécharger le modèle',
     ],
     'pages' => [
-       'client_support' => [
+        'calendar' => [
+            'create_event' => 'Créer événement',
+        ],
+        'client_support' => [
             'help_text' => 'Besoin d’aide ? Envoyez-nous un message, nous vous répondrons rapidement dans Conversations support.',
             'heading' => 'Envoyer un message au support',
             'name' => 'Nom',
