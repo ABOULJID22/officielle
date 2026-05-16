@@ -210,6 +210,7 @@ Route::post('/client/support', function (\Illuminate\Http\Request $request) {
 
 // Page Nos Services
 Route::view('/noservices', 'pages.noservices')->name('noservices');
+Route::view('/todo', 'pages.todo')->name('todo');
 
 
 
