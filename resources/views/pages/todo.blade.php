@@ -7,7 +7,7 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
-    <link rel="icon" type="image/png" href="{{ isset($siteSettings) && $siteSettings?->favicon_path ? Storage::url($siteSettings->favicon_path) : asset('favicon.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 </head>
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 mt-8">
     @include('layouts.navbar')

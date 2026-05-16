@@ -11,4 +11,3 @@ class TodoPageTest extends TestCase
         $this->get('/todo')->assertOk();
     }
 }
-
