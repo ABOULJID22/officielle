@@ -36,26 +36,30 @@ class CommercialResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema
-            ->columns(2)
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nom')
-                    ->placeholder('Ex: Ahmed El Fassi')
-                    ->required()
-                    ->maxLength(191),
-                Forms\Components\TextInput::make('contact')
-                    ->label('Contact')
-                    ->placeholder('Téléphone ou email')
-                    ->maxLength(191),
-                Forms\Components\Select::make('clients')
-                    ->label('Pharmacies assignées')
-                    ->relationship('clients', 'name', function ($query) {
-                        return $query->whereHas('roles', fn ($q) => $q->where('name', 'client'));
-                    })
-                    ->multiple()
-                    ->searchable()
-                    ->preload()
-                    ->columnSpanFull(),
+                Forms\Components\Section::make('Formulaire Commercial')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nom')
+                            ->placeholder('Ex: Ahmed El Fassi')
+                            ->required()
+                            ->maxLength(191),
+                        Forms\Components\TextInput::make('contact')
+                            ->label('Contact')
+                            ->placeholder('Téléphone ou email')
+                            ->maxLength(191),
+                        Forms\Components\Select::make('clients')
+                            ->label('Pharmacies assignées')
+                            ->relationship('clients', 'name', function ($query) {
+                                return $query->whereHas('roles', fn ($q) => $q->where('name', 'client'));
+                            })
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->helperText("Aucune section de notification SMS n'est incluse.")
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
