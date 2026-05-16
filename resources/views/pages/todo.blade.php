@@ -49,6 +49,7 @@
                             Ajouter la tâche
                         </button>
                     </div>
+                    <p id="todo-error" class="text-sm text-red-600 hidden"></p>
                 </form>
             </div>
 
@@ -65,6 +66,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('todo-form');
             const list = document.getElementById('todo-list');
+            const error = document.getElementById('todo-error');
 
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -76,12 +78,18 @@
                 const priority = document.getElementById('todo-priority').value;
                 const description = document.getElementById('todo-description').value.trim();
                 const allowedPriorities = ['Basse', 'Moyenne', 'Haute'];
+                error.classList.add('hidden');
+                error.textContent = '';
 
                 if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                    error.textContent = 'Format de date invalide.';
+                    error.classList.remove('hidden');
                     return;
                 }
 
                 if (!allowedPriorities.includes(priority)) {
+                    error.textContent = 'Priorité invalide.';
+                    error.classList.remove('hidden');
                     return;
                 }
 
