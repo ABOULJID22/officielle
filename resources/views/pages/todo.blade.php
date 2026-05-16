@@ -15,7 +15,7 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="max-w-5xl mx-auto px-6 py-16">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Todo</h1>
-            <p class="text-gray-600 dark:text-gray-300 mb-8">Formulaire de tâches adapté au design Offitrade (sans section SMS).</p>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">Formulaire de tâches adapté au design Offitrade.</p>
 
             <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 shadow-sm">
                 <form id="todo-form" class="space-y-4">
@@ -85,6 +85,15 @@
                     error.textContent = 'Format de date invalide.';
                     error.classList.remove('hidden');
                     return;
+                }
+
+                if (date) {
+                    const parsedDate = new Date(`${date}T00:00:00`);
+                    if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) {
+                        error.textContent = 'Date invalide.';
+                        error.classList.remove('hidden');
+                        return;
+                    }
                 }
 
                 if (!allowedPriorities.includes(priority)) {
