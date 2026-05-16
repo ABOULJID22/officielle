@@ -8,13 +8,22 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('pharmacy_name')->nullable()->change();
+            if (Schema::hasColumn('users', 'pharmacy_name')) {
+                $table->string('pharmacy_name')->nullable()->change();
+                return;
+            }
+
+            $table->string('pharmacy_name')->nullable();
         });
     }
 
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            if (! Schema::hasColumn('users', 'pharmacy_name')) {
+                return;
+            }
+
             $table->string('pharmacy_name')->nullable(false)->change();
         });
     }
