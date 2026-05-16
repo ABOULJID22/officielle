@@ -88,8 +88,14 @@
                 }
 
                 if (date) {
-                    const parsedDate = new Date(date);
-                    if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) {
+                    const [year, month, day] = date.split('-').map(Number);
+                    const parsedDate = new Date(Date.UTC(year, month - 1, day));
+                    const isInvalidDate = Number.isNaN(parsedDate.getTime())
+                        || parsedDate.getUTCFullYear() !== year
+                        || parsedDate.getUTCMonth() !== month - 1
+                        || parsedDate.getUTCDate() !== day;
+
+                    if (isInvalidDate) {
                         error.textContent = 'Date invalide.';
                         error.classList.remove('hidden');
                         return;
